@@ -1,0 +1,216 @@
+/* ============================================================
+   ASENTAR — Design tokens (color + type)  ·  SOURCE OF TRUTH
+   Imported by app/globals.css AFTER `@import "tailwindcss";`.
+   :root = light (default, the working surface)  ·  .dark = dark
+   Same token names, inverted values.
+   Hues: ink/neutrals 262 (cool blue-black) · sello 168 (green)
+   ============================================================ */
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --ink-h: 262;     /* neutrals + primary. Do not warm them up. */
+  --sello-h: 168;   /* the single accent: reconciled + sealed */
+
+  --background: oklch(0.975 0.005 250);          /* papel */
+  --foreground: oklch(0.240 0.045 var(--ink-h)); /* tinta */
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.240 0.045 var(--ink-h));
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.240 0.045 var(--ink-h));
+
+  /* primary = ink. Buttons and CTAs are ink, never green. */
+  --primary: oklch(0.240 0.045 var(--ink-h));
+  --primary-foreground: oklch(0.975 0.005 250);
+  --secondary: oklch(0.945 0.008 255);
+  --secondary-foreground: oklch(0.240 0.045 var(--ink-h));
+  --muted: oklch(0.945 0.008 255);
+  --muted-foreground: oklch(0.500 0.030 258);    /* grafito */
+  --accent: oklch(0.945 0.012 255);              /* hover / selected row, NOT the brand accent */
+  --accent-foreground: oklch(0.240 0.045 var(--ink-h));
+
+  --destructive: oklch(0.550 0.170 25);
+  --destructive-foreground: oklch(0.985 0.005 25);
+  --border: oklch(0.880 0.012 255);              /* renglón */
+  --input: oklch(0.880 0.012 255);
+  --ring: oklch(0.520 0.100 var(--sello-h));
+
+  /* ---- Sello: brand accent AND the "reconciled / sealed" state ---- */
+  --sello: oklch(0.520 0.100 var(--sello-h));
+  --sello-foreground: oklch(0.985 0.010 var(--sello-h));
+  --sello-soft: oklch(0.950 0.030 var(--sello-h));
+
+  /* ---- Reconciliation states (always paired with a label) ---- */
+  --review: oklch(0.580 0.130 65);               /* needs human review */
+  --review-soft: oklch(0.960 0.040 75);
+  --diff: oklch(0.550 0.170 25);                 /* does not reconcile */
+  --diff-soft: oklch(0.960 0.030 25);
+  --info: oklch(0.550 0.110 245);
+  --info-soft: oklch(0.955 0.020 245);
+
+  /* ---- Amounts: accounting convention. Negatives in parentheses + --negative.
+          Positives stay in foreground (no green for gains). ---- */
+  --negative: oklch(0.550 0.170 25);
+
+  --chart-1: oklch(0.520 0.100 168);
+  --chart-2: oklch(0.450 0.090 255);
+  --chart-3: oklch(0.600 0.080 215);
+  --chart-4: oklch(0.520 0.090 300);
+  --chart-5: oklch(0.600 0.020 258);
+
+  --radius: 0.5rem;   /* 8px controls; panels use rounded-xl (14px) */
+  --font-sans: var(--font-public-sans), "Public Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+}
+
+.dark {
+  --background: oklch(0.190 0.030 var(--ink-h));
+  --foreground: oklch(0.930 0.010 255);
+  --card: oklch(0.235 0.035 var(--ink-h));
+  --card-foreground: oklch(0.930 0.010 255);
+  --popover: oklch(0.235 0.035 var(--ink-h));
+  --popover-foreground: oklch(0.930 0.010 255);
+
+  --primary: oklch(0.930 0.010 255);
+  --primary-foreground: oklch(0.190 0.030 var(--ink-h));
+  --secondary: oklch(0.280 0.035 var(--ink-h));
+  --secondary-foreground: oklch(0.930 0.010 255);
+  --muted: oklch(0.280 0.035 var(--ink-h));
+  --muted-foreground: oklch(0.720 0.025 258);
+  --accent: oklch(0.290 0.040 var(--ink-h));
+  --accent-foreground: oklch(0.930 0.010 255);
+
+  --destructive: oklch(0.720 0.150 25);
+  --destructive-foreground: oklch(0.190 0.030 var(--ink-h));
+  --border: oklch(0.330 0.035 var(--ink-h));
+  --input: oklch(0.330 0.035 var(--ink-h));
+  --ring: oklch(0.760 0.110 var(--sello-h));
+
+  --sello: oklch(0.760 0.110 var(--sello-h));
+  --sello-foreground: oklch(0.190 0.040 var(--sello-h));
+  --sello-soft: oklch(0.300 0.050 var(--sello-h));
+
+  --review: oklch(0.800 0.120 75);
+  --review-soft: oklch(0.320 0.050 70);
+  --diff: oklch(0.720 0.150 25);
+  --diff-soft: oklch(0.320 0.060 25);
+  --info: oklch(0.740 0.100 245);
+  --info-soft: oklch(0.300 0.050 245);
+
+  --negative: oklch(0.720 0.150 25);
+
+  --chart-1: oklch(0.760 0.110 168);
+  --chart-2: oklch(0.700 0.090 255);
+  --chart-3: oklch(0.760 0.080 215);
+  --chart-4: oklch(0.720 0.090 300);
+  --chart-5: oklch(0.650 0.020 258);
+}
+
+/* --- Color / font / radius -> Tailwind utilities (bg-*, text-*, border-*) --- */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-sello: var(--sello);
+  --color-sello-foreground: var(--sello-foreground);
+  --color-sello-soft: var(--sello-soft);
+  --color-review: var(--review);
+  --color-review-soft: var(--review-soft);
+  --color-diff: var(--diff);
+  --color-diff-soft: var(--diff-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+  --color-negative: var(--negative);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+
+  --radius-sm: calc(var(--radius) - 2px);   /* 6px  chips inside tables */
+  --radius-md: var(--radius);               /* 8px  buttons, inputs */
+  --radius-lg: calc(var(--radius) + 2px);   /* 10px popovers */
+  --radius-xl: calc(var(--radius) + 6px);   /* 14px cards, panels */
+}
+
+/* --- Type scale -> utilities: text-display, text-h1, text-body, text-micro, ... ---
+   line-height / tracking / weight are baked into each size. */
+@theme {
+  --text-display: 3rem;              /* landing hero only */
+  --text-display--line-height: 1;
+  --text-display--letter-spacing: -0.04em;
+  --text-display--font-weight: 800;
+
+  --text-display-2: 2.25rem;
+  --text-display-2--line-height: 1.05;
+  --text-display-2--letter-spacing: -0.03em;
+  --text-display-2--font-weight: 800;
+
+  --text-h1: 1.75rem;
+  --text-h1--line-height: 1.15;
+  --text-h1--letter-spacing: -0.02em;
+  --text-h1--font-weight: 700;
+
+  --text-h2: 1.375rem;
+  --text-h2--line-height: 1.25;
+  --text-h2--letter-spacing: -0.02em;
+  --text-h2--font-weight: 700;
+
+  --text-h3: 1.0625rem;
+  --text-h3--line-height: 1.3;
+  --text-h3--letter-spacing: -0.01em;
+  --text-h3--font-weight: 700;
+
+  --text-body-lg: 1rem;
+  --text-body-lg--line-height: 1.55;
+
+  --text-body: 0.875rem;             /* default UI text */
+  --text-body--line-height: 1.5;
+
+  --text-body-sm: 0.8125rem;
+  --text-body-sm--line-height: 1.45;
+
+  --text-label: 0.75rem;             /* table headers, form labels */
+  --text-label--line-height: 1.3;
+  --text-label--font-weight: 600;
+
+  --text-micro: 0.6875rem;           /* rótulo; add `uppercase` in markup */
+  --text-micro--line-height: 1.2;
+  --text-micro--letter-spacing: 0.08em;
+  --text-micro--font-weight: 600;
+}
+
+@layer base {
+  * { border-color: var(--border); }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    font-variant-numeric: tabular-nums;
+  }
+  /* mandatory for financial data so columns align */
+  .tabular-nums { font-variant-numeric: tabular-nums; }
+  /* accounting total: double underline under a closed total */
+  .total-cerrado { border-bottom: 3px double var(--foreground); }
+}
