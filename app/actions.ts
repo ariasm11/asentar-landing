@@ -20,7 +20,7 @@ export async function joinPilot(
   _prevState: JoinPilotState,
   formData: FormData,
 ): Promise<JoinPilotState> {
-  if (text(formData, 'website').trim() !== '') {
+  if (text(formData, 'asentar_hp_ref').trim() !== '') {
     return { ok: true }
   }
 
@@ -51,6 +51,12 @@ export async function joinPilot(
   }
 
   const data = parsed.data
+  const privacyVersion = process.env.PRIVACY_VERSION
+
+  if (!privacyVersion) {
+    console.error('[joinPilot] Missing PRIVACY_VERSION')
+    return { ok: false, error: GENERIC_ERROR, values }
+  }
 
   try {
     const supabase = createSupabaseAdmin()
@@ -61,7 +67,7 @@ export async function joinPilot(
       role: data.role,
       monthly_tx_volume: data.monthly_tx_volume,
       consent_privacy: true,
-      privacy_version: process.env.PRIVACY_VERSION ?? null,
+      privacy_version: privacyVersion,
       utm_source: data.utm_source,
       utm_medium: data.utm_medium,
       utm_campaign: data.utm_campaign,

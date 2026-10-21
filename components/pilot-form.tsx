@@ -101,8 +101,15 @@ export function PilotForm() {
         className="relative grid grid-cols-1 gap-x-4 gap-y-5 sm:grid-cols-2"
       >
         <div aria-hidden="true" className="absolute -left-[9999px] top-0 h-px w-px overflow-hidden">
-          <label htmlFor="website">Sitio web</label>
-          <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+          <label htmlFor="asentar_hp_ref">Sitio web</label>
+          <input
+            id="asentar_hp_ref"
+            name="asentar_hp_ref"
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+          />
         </div>
         {UTM_KEYS.map((key) => (
           <input key={key} type="hidden" name={key} value={utms[key]} />

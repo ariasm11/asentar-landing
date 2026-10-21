@@ -12,7 +12,7 @@ export const PILOT_TX_VOLUMES = [
 const optionalUtm = z
   .string()
   .trim()
-  .max(200)
+  .max(100)
   .transform((value) => value || null)
   .nullable()
   .catch(null)
