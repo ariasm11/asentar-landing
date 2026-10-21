@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { AsentarLogo } from '@/brand/logo'
 import { cn } from '@/lib/utils'
 
@@ -12,9 +13,15 @@ const NAV_ITEMS = [
 ]
 
 export function SiteHeader() {
-  const [overHero, setOverHero] = useState(true)
+  const pathname = usePathname()
+  const isPrivacyPage = pathname === '/privacidad'
+  const [overHero, setOverHero] = useState(!isPrivacyPage)
 
   useEffect(() => {
+    if (isPrivacyPage) {
+      setOverHero(false)
+      return
+    }
     const hero = document.getElementById('hero')
     if (!hero) return
     // The header height (4rem) is trimmed from the top so it flips to paper
@@ -25,7 +32,7 @@ export function SiteHeader() {
     )
     observer.observe(hero)
     return () => observer.disconnect()
-  }, [])
+  }, [isPrivacyPage])
 
   return (
     <header
