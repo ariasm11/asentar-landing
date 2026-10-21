@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { AsentarLogo } from '@/brand/logo'
 
 type FooterLink = { label: string; href: string | null }
@@ -61,14 +60,6 @@ function FooterItem({ link }: { link: FooterLink }) {
         {link.label}
         <span className="rounded-full border border-border px-2 py-0.5 text-micro">Próximamente</span>
       </span>
-    )
-  }
-
-  if (link.href.startsWith('/')) {
-    return (
-      <Link href={link.href} className={linkClass}>
-        {link.label}
-      </Link>
     )
   }
 
