@@ -25,7 +25,10 @@ function origin(value: string | null) {
 export async function notifyDiscord(data: PilotNotificationData) {
   try {
     const webhookUrl = process.env.DISCORD_WEBHOOK_URL
-    if (!webhookUrl) return
+    if (!webhookUrl) {
+      console.error('[notify] DISCORD_WEBHOOK_URL no configurada, aviso omitido')
+      return
+    }
 
     const response = await fetch(webhookUrl, {
       method: 'POST',
@@ -52,9 +55,16 @@ export async function notifyDiscord(data: PilotNotificationData) {
       }),
     })
 
+    const responseBody = await response.text()
     if (!response.ok) {
-      console.error('[notifyDiscord] Webhook failed', response.status)
+      console.error('[notify] Discord falló', {
+        status: response.status,
+        body: responseBody,
+      })
+      return
     }
+
+    console.log('[notify] Discord enviado')
   } catch (error) {
     console.error('[notifyDiscord] Failed', error)
   }
@@ -64,10 +74,16 @@ export async function notifyEmail(data: PilotNotificationData) {
   try {
     const apiKey = process.env.RESEND_API_KEY
     const to = process.env.ALERT_EMAIL_TO
+    if (!apiKey) {
+      console.error('[notify] RESEND_API_KEY no configurada, aviso omitido')
+    }
+    if (!to) {
+      console.error('[notify] ALERT_EMAIL_TO no configurada, aviso omitido')
+    }
     if (!apiKey || !to) return
 
     const resend = new Resend(apiKey)
-    const { error } = await resend.emails.send(
+    const { data: sentEmail, error } = await resend.emails.send(
       {
         from: 'Asentar <avisos@asentar.finance>',
         to,
@@ -85,8 +101,14 @@ export async function notifyEmail(data: PilotNotificationData) {
     )
 
     if (error) {
-      console.error('[notifyEmail] Resend failed', error)
+      console.error('[notify] Mail falló', {
+        status: error.statusCode,
+        body: error.message,
+      })
+      return
     }
+
+    console.log(`[notify] Mail enviado, id: ${sentEmail?.id ?? 'desconocido'}`)
   } catch (error) {
     console.error('[notifyEmail] Failed', error)
   }
