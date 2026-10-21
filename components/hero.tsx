@@ -39,7 +39,7 @@ export function Hero() {
                 Sumarme al piloto
               </a>
               <a
-                href="#como-funciona"
+                href="#producto"
                 className="inline-flex h-12 items-center rounded-md border border-foreground/70 px-5 text-body-lg font-semibold text-foreground transition-colors hover:bg-accent"
               >
                 Ver cómo funciona

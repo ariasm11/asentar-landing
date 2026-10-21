@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import { useActionState, useEffect, useState } from 'react'
 import { joinPilot } from '@/app/actions'
 import { Badge } from '@/components/ui/badge'
@@ -175,12 +174,14 @@ export function PilotForm() {
             <Label htmlFor="consent_privacy" className="text-body font-normal">
               <span>
                 Acepto la{' '}
-                <Link
+                <a
                   href="/privacidad"
+                  target="_blank"
+                  rel="noopener"
                   className="font-semibold underline underline-offset-4 hover:text-muted-foreground"
                 >
                   Política de privacidad
-                </Link>
+                </a>
               </span>
             </Label>
           </div>
