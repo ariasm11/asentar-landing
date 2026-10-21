@@ -101,7 +101,7 @@ export function PilotForm() {
         className="relative grid grid-cols-1 gap-x-4 gap-y-5 sm:grid-cols-2"
       >
         <div aria-hidden="true" className="absolute -left-[9999px] top-0 h-px w-px overflow-hidden">
-          <label htmlFor="asentar_hp_ref">Sitio web</label>
+          <label htmlFor="asentar_hp_ref">No completar</label>
           <input
             id="asentar_hp_ref"
             name="asentar_hp_ref"
