@@ -1,6 +1,7 @@
 import 'server-only'
 
 import { Resend } from 'resend'
+import { pilotConfirmationEmail } from '@/lib/emails/pilot-confirmation'
 
 export type PilotNotificationData = {
   id: string
@@ -111,5 +112,49 @@ export async function notifyEmail(data: PilotNotificationData) {
     console.log(`[notify] Mail enviado, id: ${sentEmail?.id ?? 'desconocido'}`)
   } catch (error) {
     console.error('[notifyEmail] Failed', error)
+  }
+}
+
+/** Confirmation email to the person who joined the pilot. Never logs their address. */
+export async function sendPilotConfirmation(data: PilotNotificationData) {
+  try {
+    const apiKey = process.env.RESEND_API_KEY
+    if (!apiKey) {
+      console.error('[notify] RESEND_API_KEY no configurada, confirmación omitida')
+      return
+    }
+
+    const { subject, html, text } = pilotConfirmationEmail({
+      name: data.name,
+      company: data.company,
+      role: data.role,
+      monthlyTxVolume: data.monthly_tx_volume,
+      siteUrl: process.env.SITE_URL ?? 'https://asentar.finance',
+    })
+
+    const resend = new Resend(apiKey)
+    const { data: sentEmail, error } = await resend.emails.send(
+      {
+        from: 'Asentar <hola@asentar.finance>',
+        replyTo: 'matias@asentar.finance',
+        to: data.email,
+        subject,
+        html,
+        text,
+      },
+      { idempotencyKey: `pilot-confirmation/${data.id}` },
+    )
+
+    if (error) {
+      console.error('[notify] Confirmación falló', {
+        status: error.statusCode,
+        body: error.message,
+      })
+      return
+    }
+
+    console.log(`[notify] Confirmación enviada, id: ${sentEmail?.id ?? 'desconocido'}`)
+  } catch (error) {
+    console.error('[sendPilotConfirmation] Failed', error)
   }
 }

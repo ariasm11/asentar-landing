@@ -8,7 +8,12 @@ import {
 } from '@/lib/pilot-schema'
 import { after } from 'next/server'
 import { createSupabaseAdmin } from '@/lib/supabase-admin'
-import { notifyDiscord, notifyEmail, type PilotNotificationData } from '@/lib/notify'
+import {
+  notifyDiscord,
+  notifyEmail,
+  sendPilotConfirmation,
+  type PilotNotificationData,
+} from '@/lib/notify'
 
 const GENERIC_ERROR =
   'No pudimos guardar tus datos. Probá de nuevo en un minuto o escribinos a hola@asentar.finance.'
@@ -114,7 +119,11 @@ export async function joinPilot(
   }
 
   after(async () => {
-    await Promise.allSettled([notifyDiscord(notificationData), notifyEmail(notificationData)])
+    await Promise.allSettled([
+      notifyDiscord(notificationData),
+      notifyEmail(notificationData),
+      sendPilotConfirmation(notificationData),
+    ])
   })
 
   return { ok: true, name: data.name, email: data.email }
