@@ -6,10 +6,10 @@ import { AsentarLogo } from '@/brand/logo'
 import { cn } from '@/lib/utils'
 
 const NAV_ITEMS = [
-  { href: '#como-funciona', label: 'Producto' },
-  { href: '#sello', label: 'Cierre verificable' },
-  { href: '#para-quien', label: 'Para quién' },
-  { href: '#preguntas', label: 'Preguntas' },
+  { href: '/#producto', label: 'Producto' },
+  { href: '/#sello', label: 'Cierre verificable' },
+  { href: '/#para-quien', label: 'Para quién' },
+  { href: '/#preguntas', label: 'Preguntas' },
 ]
 
 export function SiteHeader() {
@@ -42,7 +42,7 @@ export function SiteHeader() {
       )}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-6 lg:px-16">
-        <a href="#top" className="rounded-md" aria-label="Asentar, ir al inicio">
+        <a href="/#top" className="rounded-md" aria-label="Asentar, ir al inicio">
           <AsentarLogo size={22} />
         </a>
 
@@ -62,7 +62,7 @@ export function SiteHeader() {
         </nav>
 
         <a
-          href="#piloto"
+          href="/#piloto"
           className="inline-flex h-9 items-center rounded-md bg-primary px-3.5 text-body font-semibold text-primary-foreground transition-colors hover:bg-primary/90 md:h-11 md:px-5"
         >
           Sumarme al piloto

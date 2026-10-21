@@ -8,16 +8,16 @@ const columns: FooterColumn[] = [
   {
     title: 'Producto',
     links: [
-      { label: 'Cómo funciona', href: '#producto' },
-      { label: 'Cierre verificable', href: '#sello' },
+      { label: 'Cómo funciona', href: '/#producto' },
+      { label: 'Cierre verificable', href: '/#sello' },
       { label: 'Precios', href: null },
     ],
   },
   {
     title: 'Empresa',
     links: [
-      { label: 'Programa piloto', href: '#piloto' },
-      { label: 'Preguntas', href: '#preguntas' },
+      { label: 'Programa piloto', href: '/#piloto' },
+      { label: 'Preguntas', href: '/#preguntas' },
       { label: 'hola@asentar.finance', href: 'mailto:hola@asentar.finance' },
     ],
   },
