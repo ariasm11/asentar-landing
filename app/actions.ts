@@ -60,9 +60,13 @@ export async function joinPilot(
     return { ok: false, error: GENERIC_ERROR, values }
   }
 
+  let inserted: { id: string } | null = null
+
   try {
     const supabase = createSupabaseAdmin()
-    const { error } = await supabase.from('pilot_signups').insert({
+    const { data: insertedRow, error } = await supabase
+      .from('pilot_signups')
+      .insert({
       name: data.name,
       email: data.email,
       company: data.company,
@@ -74,6 +78,10 @@ export async function joinPilot(
       utm_medium: data.utm_medium,
       utm_campaign: data.utm_campaign,
     })
+      .select('id')
+      .single()
+
+    inserted = insertedRow
 
     if (error) {
       if (error.code === '23505') {
@@ -90,7 +98,13 @@ export async function joinPilot(
     return { ok: false, error: GENERIC_ERROR, values }
   }
 
+  if (!inserted?.id) {
+    console.error('[joinPilot] Insert returned no id')
+    return { ok: false, error: GENERIC_ERROR, values }
+  }
+
   const notificationData: PilotNotificationData = {
+    id: inserted.id,
     name: data.name,
     email: data.email,
     company: data.company,

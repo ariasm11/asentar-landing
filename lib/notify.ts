@@ -3,6 +3,7 @@ import 'server-only'
 import { Resend } from 'resend'
 
 export type PilotNotificationData = {
+  id: string
   name: string
   email: string
   company: string
@@ -42,7 +43,9 @@ export async function notifyDiscord(data: PilotNotificationData) {
               { name: 'Volumen mensual', value: limit(data.monthly_tx_volume), inline: true },
               { name: 'Origen', value: origin(data.utm_source), inline: true },
             ],
-            footer: { text: 'Respondé dentro de las 24 h · ver en Supabase' },
+            footer: {
+              text: `Respondé dentro de las 24 h · ver en Supabase · id: ${data.id.slice(0, 8)}`,
+            },
             timestamp: new Date().toISOString(),
           },
         ],
@@ -78,7 +81,7 @@ export async function notifyEmail(data: PilotNotificationData) {
           `Origen: ${origin(data.utm_source)}`,
         ].join('\n'),
       },
-      { idempotencyKey: `pilot-signup/${data.email}` },
+      { idempotencyKey: `pilot-signup/${data.id}` },
     )
 
     if (error) {
