@@ -28,6 +28,17 @@ const faqs = [
   },
 ]
 
+// Same questions as the accordion, so the structured data never drifts from what the page says.
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+}
+
 export function Preguntas() {
   return (
     <section
@@ -35,6 +46,10 @@ export function Preguntas() {
       aria-labelledby="preguntas-title"
       className="scroll-mt-20 border-t border-border bg-background text-foreground"
     >
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <div className="mx-auto flex max-w-7xl flex-col gap-10 px-6 pt-20 pb-12 md:pt-28 md:pb-16 lg:px-16">
         <header className="flex max-w-2xl flex-col gap-4">
           <p className="font-mono text-micro uppercase text-muted-foreground">Preguntas</p>

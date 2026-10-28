@@ -2,6 +2,7 @@ import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { JetBrains_Mono, Public_Sans } from 'next/font/google'
 import { socialLinks } from '@/components/site-footer'
+import { siteDescription, siteUrl } from '@/lib/site'
 import './globals.css'
 
 const publicSans = Public_Sans({
@@ -16,18 +17,13 @@ const jetbrainsMono = JetBrains_Mono({
   display: 'swap',
 })
 
-const siteUrl = 'https://asentar.finance'
-const description =
-  'Asentar lee wallets y exchanges, clasifica cada movimiento con IA y genera los asientos para tu ERP. Cada cierre queda sellado en Ethereum.'
-
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
     default: 'Asentar — Subledger contable cripto para LATAM',
     template: '%s · Asentar',
   },
-  description,
-  generator: 'v0.app',
+  description: siteDescription,
   alternates: { canonical: '/' },
   openGraph: {
     type: 'website',
@@ -42,14 +38,28 @@ export const metadata: Metadata = {
   },
 }
 
-const organizationJsonLd = {
+const siteJsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'Asentar',
-  url: siteUrl,
-  logo: `${siteUrl}/icon.svg`,
-  email: 'hola@asentar.finance',
-  sameAs: socialLinks.map((social) => social.href),
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#organization`,
+      name: 'Asentar',
+      url: siteUrl,
+      logo: `${siteUrl}/icon.svg`,
+      description: siteDescription,
+      email: 'hola@asentar.finance',
+      sameAs: socialLinks.map((social) => social.href),
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}/#website`,
+      name: 'Asentar',
+      url: siteUrl,
+      inLanguage: 'es-AR',
+      publisher: { '@id': `${siteUrl}/#organization` },
+    },
+  ],
 }
 
 export const viewport: Viewport = {
@@ -70,7 +80,7 @@ export default function RootLayout({
       <body className="font-sans antialiased">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd) }}
         />
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
