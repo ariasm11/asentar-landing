@@ -1,0 +1,55 @@
+# Asentar
+
+> Asentar es un subledger contable cripto para Latinoamérica. Lee wallets y exchanges, clasifica cada movimiento con IA y genera los asientos para el ERP. Cada cierre queda sellado en Ethereum.
+
+Asentar está en programa piloto: busca uno o dos PSAV para cerrar un mes real con Asentar, en paralelo a su cierre actual. El piloto no tiene costo.
+
+## Para quién
+
+- **PSAV y exchanges (hoy):** equipos de finanzas de 2 a 8 personas que hoy concilian miles de movimientos en planillas.
+- **Empresas que operan en stablecoins:** cobros y pagos en USDC o USDT que tienen que llegar al ERP con el tipo de cambio correcto.
+- **Estudios contables (canal):** licencia multicliente para llevar la contabilidad cripto de varios clientes desde un solo lugar.
+
+## Cómo funciona, del bloque al balance en cinco pasos
+
+1. **Datos:** cada transacción, hasta el último bloque finalizado. Wallets por dirección pública (nunca pide claves), exchanges y custodios por API, y control de completitud del libro contra el saldo on-chain.
+2. **Clasificación:** primero las reglas, después la IA. Reglas para lo conocido (swaps, transferencias internas, spam) e IA para lo nuevo, con motivo y confianza.
+3. **Revisión:** va a revisión lo dudoso, lo material y lo nuevo. Cada decisión queda registrada con su autor.
+4. **Libro diario:** un asiento por transacción, en pesos, con precio, tipo de cambio y lotes. FIFO y tipo de cambio según la política contable, y revaluación al cierre con resultado por tenencia.
+5. **Cierre y Sello:** el período cierra solo si todo concilia. Se publica una atestación con el hash de libros y saldos, y se exporta a Odoo con control de cambios.
+
+## La IA clasifica, las reglas calculan
+
+- La IA propone el tipo de movimiento, la contraparte y la cuenta, explica por qué y con qué grado de confianza, y aprende de cada corrección del equipo.
+- Las reglas valúan cada lote con su costo histórico y su valor contable, convierten a pesos con el tipo de cambio de la política (oficial, MEP o CCL), calculan diferencias de cambio y resultados por tenencia, y bloquean el cierre si el saldo en libros no coincide con el on-chain.
+- La IA nunca calcula un monto.
+
+## Sello de cierre
+
+Al cerrar el mes, Asentar publica en Ethereum una atestación (EAS) con el hash de los libros y de los saldos conciliados. Si alguien modifica un asiento después del cierre, el sello deja de coincidir. Sirve a auditores (verifican que los papeles de trabajo son los del cierre), reguladores (reciben saldos conciliados con la blockchain a una fecha) y bancos (pueden comprobar las reservas). Los saldos de los clientes no se exponen.
+
+## Hecho para la región
+
+Frente a las herramientas globales (GAAP, IFRS, IRS, MiCA), Asentar trabaja con la normativa argentina: ARCA, CNV, UIF, normas contables FACPCE y ajuste por inflación. Usa tipo de cambio oficial, MEP o CCL según el uso fiscal, contable o de gestión, y el soporte es en español, con contadores de la región.
+
+## Preguntas frecuentes
+
+- **¿Asentar necesita mis claves privadas?** No. Solo usa direcciones públicas y accesos de lectura por API. Si alguien pega una clave privada o una frase semilla, Asentar la rechaza y no la guarda.
+- **¿La IA puede equivocarse en un monto?** La IA no calcula montos. Propone la clasificación con su motivo y su confianza; los importes, el tipo de cambio y la valuación salen de reglas contables auditables.
+- **¿Con qué ERPs funciona?** El piloto exporta a Odoo. Tango, Bejerman y NetSuite están en la hoja de ruta. Los asientos llegan en borrador para que el equipo los publique.
+- **¿Qué es el Sello de cierre?** Una atestación en Ethereum (EAS) con el hash de los libros y los saldos conciliados del período. Permite comprobar que nada cambió después del cierre sin exponer los saldos de los clientes.
+- **¿Sirve para el régimen de información de ARCA?** El MVP trabaja con las wallets propias del PSAV. El reporte por cliente de la RG 5804/2025 es la siguiente etapa.
+
+## Páginas
+
+- [Inicio](https://asentar.finance/): qué es Asentar y cómo funciona
+- [Programa piloto](https://asentar.finance/#piloto): cómo es el piloto y formulario para sumarse
+- [Preguntas frecuentes](https://asentar.finance/#preguntas)
+- [Política de privacidad](https://asentar.finance/privacidad)
+
+## Contacto
+
+- Email: hola@asentar.finance
+- X: https://x.com/asentar_finance
+- LinkedIn: https://www.linkedin.com/company/asentar-finance
+- Discord: https://discord.gg/HSrJZ3sPV
